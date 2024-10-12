@@ -1,0 +1,24 @@
+FROM osrf/ros:galactic-desktop
+
+SHELL [ "/bin/bash" , "-c" ]
+
+RUN apt-get update && apt-get install -y \
+ ros-galactic-xacro \
+ ros-galactic-joint-state-publisher \
+ ros-galactic-gazebo-ros-pkgs \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /ros2_ws/src
+RUN git clone --depth 1 --branch cp22 https://github.com/chatzialex/tortoisebot.git /tortoisebot \
+ && cp -r /tortoisebot/tortoisebot_bringup /ros2_ws/src \
+ && cp -r /tortoisebot/tortoisebot_description /ros2_ws/src \
+ && cp -r /tortoisebot/tortoisebot_gazebo /ros2_ws/src \
+ && cp -r /tortoisebot/ydlidar-ros2 /ros2_ws/src \
+ && rm -rf /tortoisebot
+
+RUN source /opt/ros/galactic/setup.bash \
+ && cd /ros2_ws \
+ && colcon build
+
+ENTRYPOINT ["/bin/bash"]
+CMD ["-c", "source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_bringup bringup.launch.py use_sim_time:=True"]
