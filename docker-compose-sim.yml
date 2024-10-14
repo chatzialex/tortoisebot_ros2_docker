@@ -4,8 +4,8 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile.tortoisebot-ros2-gazebo
-    image: chatzialex/cp22:tortoisebot-ros2-gazebo
+      dockerfile: Dockerfile.tortoisebot-ros2
+    image: chatzialex/cp22:tortoisebot-ros2
     container_name: tortoisebot-ros2-gazebo_1
     environment:
       - DISPLAY=${DISPLAY}
