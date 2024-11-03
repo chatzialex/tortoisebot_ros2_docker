@@ -5,16 +5,21 @@ SHELL [ "/bin/bash" , "-c" ]
 RUN apt-get update && apt-get install -y \
  ros-galactic-cartographer \
  ros-galactic-cartographer-ros \
+ ros-galactic-navigation2 \
+ ros-galactic-nav2-bringup \
  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /ros2_ws/src
 RUN git clone --depth 1 --branch cp22 https://github.com/chatzialex/tortoisebot.git /tortoisebot \
  && cp -r /tortoisebot/tortoisebot_slam /ros2_ws/src \
+ && cp -r /tortoisebot/tortoisebot_navigation /ros2_ws/src \
+ && cp -r /tortoisebot/tortoisebot_bringup /ros2_ws/src \
  && rm -rf /tortoisebot
+COPY tortoisebot_ros2_docker /ros2_ws/src/tortoisebot_ros2_docker
 
 RUN source /opt/ros/galactic/setup.bash \
  && cd /ros2_ws \
  && colcon build
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_slam cartographer.launch.py use_sim_time:=True"]
+CMD ["-c", "source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_ros2_docker slam.launch.py use_sim_time:=True"]
