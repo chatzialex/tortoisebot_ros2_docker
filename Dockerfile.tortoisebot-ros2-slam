@@ -1,16 +1,17 @@
-FROM osrf/ros:galactic-desktop
+FROM ros:galactic
 
 SHELL [ "/bin/bash" , "-c" ]
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
  ros-galactic-cartographer \
  ros-galactic-cartographer-ros \
  ros-galactic-navigation2 \
  ros-galactic-nav2-bringup \
+ ros-galactic-rviz2 \
  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /ros2_ws/src
-RUN git clone --depth 1 --branch cp22 https://github.com/chatzialex/tortoisebot.git /tortoisebot \
+RUN git clone --depth 1 --branch ros2-galactic https://github.com/chatzialex/tortoisebot.git /tortoisebot \
  && cp -r /tortoisebot/tortoisebot_slam /ros2_ws/src \
  && cp -r /tortoisebot/tortoisebot_navigation /ros2_ws/src \
  && cp -r /tortoisebot/tortoisebot_bringup /ros2_ws/src \
