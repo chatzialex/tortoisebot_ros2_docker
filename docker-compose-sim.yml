@@ -2,9 +2,9 @@ version: "3.7"
 services:
   tortoisebot-ros2-gazebo:
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile.tortoisebot-ros2-gazebo
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.tortoisebot-ros2-gazebo
     image: chatzialex/cp22:tortoisebot-ros2-gazebo
     container_name: tortoisebot-ros2-gazebo_1
     environment:
@@ -15,9 +15,9 @@ services:
       - ros2-network
   tortoisebot-ros2-slam:
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile.tortoisebot-ros2-slam
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.tortoisebot-ros2-slam
     image: chatzialex/cp22:tortoisebot-ros2-slam
     container_name: tortoisebot-ros2-slam_1
     environment:

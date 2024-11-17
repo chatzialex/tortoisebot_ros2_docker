@@ -2,9 +2,9 @@ version: "3.7"
 services:
   tortoisebot-ros2-real:
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile.tortoisebot-ros2-real
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.tortoisebot-ros2-real
     image: chatzialex/cp22:tortoisebot-ros2-real
     container_name: tortoisebot-ros2-real_1
     network_mode: "host"
@@ -16,9 +16,9 @@ services:
       - DISPLAY=${DISPLAY}
   tortoisebot-ros2-slam:
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile.tortoisebot-ros2-slam
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.tortoisebot-ros2-slam
     image: chatzialex/cp22:tortoisebot-ros2-slam
     container_name: tortoisebot-ros2-slam_1
     command: ["-c", "source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_ros2_docker slam.launch.py use_sim_time:=False"]
