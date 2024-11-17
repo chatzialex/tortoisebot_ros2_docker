@@ -9,6 +9,11 @@ services:
     container_name: tortoisebot-ros2-real_1
     network_mode: "host"
     privileged: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority
+    environment:
+      - DISPLAY=${DISPLAY}
   tortoisebot-ros2-slam:
     restart: always
     build:
@@ -17,9 +22,4 @@ services:
     image: chatzialex/cp22:tortoisebot-ros2-slam
     container_name: tortoisebot-ros2-slam_1
     command: ["-c", "source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_ros2_docker slam.launch.py use_sim_time:=False"]
-    environment:
-      - DISPLAY=${DISPLAY}
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - $HOME/.Xauthority:/root/.Xauthority
     network_mode: "host"
